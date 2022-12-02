@@ -16,9 +16,11 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			VBox root= loader.load(new FileInputStream("src/application/LifeExpectancyView.fxml"));
-			Scene scene = new Scene (root, 348, 900);
+			Scene scene = new Scene (root, 1050, 400);
 			
-		
+			LifeExpectancyController controller = (LifeExpectancyController)loader.getController();
+			controller.applicationStage = primaryStage;
+			
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Carley Irwin's Final Project");
