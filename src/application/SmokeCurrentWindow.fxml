@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LifeExpectancyController">
+   <children>
+      <DatePicker id="DateStartedSmoking" />
+      <TextField id="ciggsPerDay" />
+      <Label prefHeight="205.0" prefWidth="269.0" text="Date started smoking and how many ciggarettes a day" />
+      <Button fx:id="doneCurrentButton" mnemonicParsing="false" onAction="#returnToMain" prefHeight="25.0" prefWidth="223.0" text="Done" />
+   </children>
+</HBox>

@@ -242,10 +242,18 @@
                         </Label>
                         
                         
-                        <ChoiceBox prefHeight="25.0" prefWidth="160.0">
+                        <ChoiceBox fx:id="smokeChoiceBox" onAction= "#openSmokeWindow" prefHeight="25.0" prefWidth="160.0">
                            <HBox.margin>
                               <Insets left="55.0" right="10.0" top="5.0" />
                            </HBox.margin>
+                           
+            	<items>
+            		<FXCollections fx:factory="observableArrayList">
+            			<String fx:value="Never Smoked" />
+            			<String fx:value="Used To Smoke" />
+            			<String fx:value="Currently Smoke" />	
+            		</FXCollections>
+            	</items>                           
                         </ChoiceBox>
                      </children>
                   </HBox>

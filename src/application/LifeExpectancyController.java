@@ -1,14 +1,17 @@
 package application;
 
+import java.io.FileInputStream;
 import java.text.DecimalFormat;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control. *;
+import javafx.scene.layout.VBox;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
+import javafx.scene.layout.HBox;
 
 
 public class LifeExpectancyController {
@@ -131,7 +134,8 @@ public class LifeExpectancyController {
     @FXML
     private TextField familyAvgInput;
 
-
+    @FXML
+    private ChoiceBox<String> smokeChoiceBox;
     @FXML
     private ChoiceBox<?> alcoholInput;
 
@@ -150,10 +154,70 @@ public class LifeExpectancyController {
 
     @FXML
     private Slider happyInput;
+    
+    @FXML
+    private Button doneCurrentButton;
 
     private static final DecimalFormat df = new DecimalFormat("0.00");
   
-	    @FXML
+
+   @FXML
+   void openSmokeWindow(ActionEvent event ) {
+	   System.out.println("Smoke Test");
+	   if(smokeChoiceBox == null) {
+
+		   System.out.println("Hello");
+		   return;
+	   }
+	   if (smokeChoiceBox.getValue().equals("Currently Smoke")){
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				HBox root= loader.load(new FileInputStream("src/application/SmokeCurrentWindow.fxml"));
+				Scene scene = new Scene (root, 1050, 400);
+				
+				Main.mainStage.hide();
+				Stage stage = new Stage();
+				stage.setScene(scene);
+				stage.setTitle("Currently Smoke Window");
+				stage.show();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}   
+	   }
+	   
+	   else if(smokeChoiceBox.getValue().equals("Used To Smoke")) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				HBox root= loader.load(new FileInputStream("src/application/UsedToSmokeWindow.fxml"));
+				Scene scene = new Scene (root, 1050, 400);
+				
+				Main.mainStage.hide();
+				Stage stage = new Stage();
+				stage.setScene(scene);
+				stage.setTitle("Used To Smoke Window");
+				stage.show();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+	   }
+	   else if(smokeChoiceBox.getValue().equals("Never Smoked")) {
+		   
+	   }
+
+   }
+   
+   @FXML
+   void returnToMain(ActionEvent event) {
+	   Stage stage = (Stage)doneCurrentButton.getScene().getWindow();
+	   stage.close();
+	   Main.mainStage.show();
+	   
+   }
+    
+   
+   
+    
+    @FXML
 	void calulateLifeExpectancy(ActionEvent event) {
 		String weightString = weightInput.getText();
 		String heightString = heightInput.getText();

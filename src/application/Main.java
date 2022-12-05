@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 
 
 public class Main extends Application {
+	public static Stage mainStage;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -21,6 +22,7 @@ public class Main extends Application {
 			LifeExpectancyController controller = (LifeExpectancyController)loader.getController();
 			controller.applicationStage = primaryStage;
 			
+			mainStage = primaryStage;
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Carley Irwin's Final Project");
