@@ -2,6 +2,8 @@ package application;
 
 import java.io.FileInputStream;
 import java.text.DecimalFormat;
+import java.time.Duration;
+import java.time.LocalDate;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
@@ -113,6 +115,7 @@ public class LifeExpectancyController {
 	int lowIntensity;
 	int alcohol;
 	int Diet;
+	double smokeLife;
 	
 	Stage applicationStage;
 	
@@ -155,12 +158,25 @@ public class LifeExpectancyController {
     @FXML
     private Slider happyInput;
     
+
+    @FXML
+    private TextField AvgCigs;
+
+    @FXML
+    private DatePicker SmokeDate;
+    
+    @FXML
+    private DatePicker currentDate;
+
     @FXML
     private Button doneCurrentButton;
+    
+    @FXML Label errorLabel;
 
     private static final DecimalFormat df = new DecimalFormat("0.00");
   
 
+    // Opens a different window when currently or used to smoke is clicked
    @FXML
    void openSmokeWindow(ActionEvent event ) {
 	   System.out.println("Smoke Test");
@@ -173,7 +189,7 @@ public class LifeExpectancyController {
 			try {
 				FXMLLoader loader = new FXMLLoader();
 				HBox root= loader.load(new FileInputStream("src/application/SmokeCurrentWindow.fxml"));
-				Scene scene = new Scene (root, 1050, 400);
+				Scene scene = new Scene (root, 335, 200);
 				
 				Main.mainStage.hide();
 				Stage stage = new Stage();
@@ -206,17 +222,57 @@ public class LifeExpectancyController {
 
    }
    
+   
+   //when done buttone is clicked action returns to main window
    @FXML
    void returnToMain(ActionEvent event) {
+
+
+	   //(days * avg cig per day * 11)/525600 (mins in a year)
+	   
+	   try {
+		   
+		   LocalDate DateStart = currentDate.getValue();
+		   LocalDate EndDate = SmokeDate.getValue();
+		   
+		  
+		   
+		   long days = Duration.between(DateStart.atStartOfDay(), EndDate.atStartOfDay()).toDays();
+		   
+		   if(days < 0) {
+			   errorLabel.setText("Input is invalid 1");
+			   return;
+		   }   
+		   int numCigs = Integer.parseInt(AvgCigs.getText());
+		   smokeLife = smokeLifeLost(days, numCigs);
+		   if (smokeLife < 0) {
+			   errorLabel.setText("Input is invalid 2");
+			   return;
+		   }
+	   
+	   }
+	   
+	   catch(Exception e){
+		   errorLabel.setText("Input is invalid 3");
+		   return;
+	   }
+	   
+	   
 	   Stage stage = (Stage)doneCurrentButton.getScene().getWindow();
 	   stage.close();
 	   Main.mainStage.show();
+   }
+    
+   
+ 
+   double smokeLifeLost(long days, int numCigs) {
+	   return (days*numCigs*11)/525600.0;
 	   
    }
     
    
    
-    
+   // calculate life expectancy
     @FXML
 	void calulateLifeExpectancy(ActionEvent event) {
 		String weightString = weightInput.getText();
@@ -277,24 +333,7 @@ public class LifeExpectancyController {
 		}
 	
 		
-		if(smoking == 0) {
-			//0 refers to not smoking
-			
-		}
-		else if(smoking == 1) {
-			// refers to previously smoked
-			// 2 boxes for age started and quit
-			//average cigaretted per day
-			//days smoked* average cigagrettes per day*11 min off of life
-			//that value/(365) = years off life
-			
-			life -= yearsOffSmoking();
-			
-		}
-		else if(smoking == 2) {
-			//refers to currently smokes
-			life -= yearsOffSmoking();
-		}
+		life -= smokeLife;
 
 		
 		
@@ -437,10 +476,6 @@ public class LifeExpectancyController {
 		
 	}
 	
-	
-	Double yearsOffSmoking() {
-		return 0.0;
-	}
 	
 	
 
