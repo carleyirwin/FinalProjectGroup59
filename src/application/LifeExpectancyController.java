@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
@@ -108,13 +110,15 @@ public class LifeExpectancyController {
 	Double weight = 0.0;
 	Double height = 0.0;
 	Double familyAvg = 0.0;
+	String alcoholConsumption = "";
 	Boolean female;
 	int happy = 0;
 	int stress = 0;
 	int highIntensity;
 	int lowIntensity;
 	int alcohol;
-	int Diet;
+	String Diet;
+
 	double smokeLife;
 	
 	Stage applicationStage;
@@ -140,7 +144,7 @@ public class LifeExpectancyController {
     @FXML
     private ChoiceBox<String> smokeChoiceBox;
     @FXML
-    private ChoiceBox<?> alcoholInput;
+    private ChoiceBox<String> alcoholInput;
 
     @FXML
     private TextField weightInput;
@@ -172,6 +176,20 @@ public class LifeExpectancyController {
     private Button doneCurrentButton;
     
     @FXML Label errorLabel;
+    
+    @FXML
+    private TextField nameTextField;
+    
+    @FXML
+    private List <PersonLife> personLifeList;
+	private String name;
+	
+	@FXML
+    private Button resetController;
+
+
+    @FXML
+    private Label finalError;
 
     private static final DecimalFormat df = new DecimalFormat("0.00");
   
@@ -182,7 +200,6 @@ public class LifeExpectancyController {
 	   System.out.println("Smoke Test");
 	   if(smokeChoiceBox == null) {
 
-		   System.out.println("Hello");
 		   return;
 	   }
 	   if (smokeChoiceBox.getValue().equals("Currently Smoke")){
@@ -199,8 +216,7 @@ public class LifeExpectancyController {
 			} catch(Exception e) {
 				e.printStackTrace();
 			}   
-	   }
-	   
+	   }   
 	   else if(smokeChoiceBox.getValue().equals("Used To Smoke")) {
 			try {
 				FXMLLoader loader = new FXMLLoader();
@@ -223,7 +239,7 @@ public class LifeExpectancyController {
    }
    
    
-   //when done buttone is clicked action returns to main window
+   //when done buttone is clicked action returns to main window for Smoking
    @FXML
    void returnToMain(ActionEvent event) {
 
@@ -234,9 +250,7 @@ public class LifeExpectancyController {
 		   
 		   LocalDate DateStart = currentDate.getValue();
 		   LocalDate EndDate = SmokeDate.getValue();
-		   
-		  
-		   
+ 
 		   long days = Duration.between(DateStart.atStartOfDay(), EndDate.atStartOfDay()).toDays();
 		   
 		   if(days < 0) {
@@ -244,7 +258,7 @@ public class LifeExpectancyController {
 			   return;
 		   }   
 		   int numCigs = Integer.parseInt(AvgCigs.getText());
-		   smokeLife = smokeLifeLost(days, numCigs);
+		   smokeLife = LifeExpectancyCalculator.smokeLifeLost(days, numCigs);
 		   if (smokeLife < 0) {
 			   errorLabel.setText("Input is invalid 2");
 			   return;
@@ -256,228 +270,74 @@ public class LifeExpectancyController {
 		   errorLabel.setText("Input is invalid 3");
 		   return;
 	   }
-	   
-	   
 	   Stage stage = (Stage)doneCurrentButton.getScene().getWindow();
 	   stage.close();
 	   Main.mainStage.show();
    }
     
    
- 
-   double smokeLifeLost(long days, int numCigs) {
-	   return (days*numCigs*11)/525600.0;
+   @FXML
+   void resetCalc(ActionEvent event) {
+	   personLifeList = null;
+	   lifeExpectancyLabel.setText("");
 	   
    }
-    
-   
-   
-   // calculate life expectancy
+	
+	
+	
+	   // calculate life expectancy
     @FXML
 	void calulateLifeExpectancy(ActionEvent event) {
-		String weightString = weightInput.getText();
-		String heightString = heightInput.getText();
-		String familyString = familyAvgInput.getText();
-		highIntensity = (int)highIntenseInput.getValue();
-		lowIntensity = (int)lowIntenseInput.getValue();		
-		stress = (int)stressInput.getValue();	
-		happy =(int) happyInput.getValue();			
+
 		try{
+			String weightString = weightInput.getText();
+			String heightString = heightInput.getText();
+			String familyString = familyAvgInput.getText();
+			name = nameTextField.getText();
+			
+			highIntensity = (int)highIntenseInput.getValue();
+			lowIntensity = (int)lowIntenseInput.getValue();		
+			stress = (int)stressInput.getValue();	
+			happy =(int) happyInput.getValue();	
+			alcoholConsumption = (String) alcoholInput.getValue();
+			Diet = (String) dietInput.getValue();
+			
 			weight = Double.parseDouble(weightString);
 			height = Double.parseDouble(heightString);
 			familyAvg = Double.parseDouble(familyString);
+			
 
 		}
-		catch(NumberFormatException e){
+		catch(Exception e){
+			finalError.setText("INVALID INPUT");
 			return;
+			
 		}
-		Double bmi = calculateBmi(weight, height);
-		Double life = calculateLife(true,bmi,familyAvg,0,lowIntensity, highIntensity,0,0,happy,stress);
+		finalError.setText("");
 		
 		
-		lifeExpectancyLabel.setText(String.format("Your estimated life expectancy is: " +  df.format(life)+ "years old"));
-	}
+		Double bmi = LifeExpectancyCalculator.calculateBmi(weight, height);
+		Double life = LifeExpectancyCalculator.calculateLife(true,bmi,familyAvg,smokeLife,lowIntensity, highIntensity,alcoholConsumption,Diet,happy,stress);
 		
-	    
-	Double calculateBmi(Double weight, Double height) {
-		height = height/100;
-		
-		return weight/(height * height);
-		
-	}
-	
-	Double calculateLife(Boolean isFemale,Double Bmi, Double familyAvg, int smoking,
-			int lowIntensity, int highIntensity, int alcoholConsumption, int Diet, int happy, int stress){
-		Double life = 0.0;
-		if(isFemale) {
-			life = 84.0;
-		}
-		else {
-			life = 81.0;
-		}
-		
-		if(Bmi < 18) {
-			life -= 4;
-		}
-		else if(Bmi>= 40 && Bmi<= 44) {
-			life -= 6.5;
-		}
-		else if(Bmi>= 45 && Bmi<= 49) {
-			life -= 8.9;
-		}
-		else if(Bmi>= 50 && Bmi<= 54) {
-			life -= 9.8;
-		}
-		else if(Bmi>= 55) {
-			life -= 13.7;
-		}
-	
-		
-		life -= smokeLife;
-
-		
-		
-		
-		if(highIntensity >= 1 && highIntensity< 3) {
-			life += 3.4;	
-		}
-		
-		else if(highIntensity >= 3 && highIntensity< 5) {
-			life += 4.2;
-		}
-		
-		else if(highIntensity >= 5 && highIntensity< 10) {
-			life += 6.5;
-		}
-		else if(highIntensity == 10) {
-			life += 8.0;			
-		}
-		
-		
-		
-		if(lowIntensity >= 1 && lowIntensity< 2.5) {
-			life += 2.0;	
-		}
-		
-		else if(lowIntensity >= 2.5 && lowIntensity< 5) {
-			life += 2.5;
-		}
-		
-		else if(lowIntensity >= 5 && lowIntensity< 8) {
-			life += 3.5;
-		}
-		else if(lowIntensity >= 8 && lowIntensity<= 10) {
-			life += 4.5;			
-		}
-		
-		
-		
-		
-//		None > Na on impact
-//				0-5 na on impact 
-//				5-10 per week = ½ year
-//				10-15 per week = -2 years
-//				15+ = - 5 years
-
-		if(alcoholConsumption>= 5 && alcoholConsumption< 10) {
-			life -= 0.5;
-		}
-		
-		else if(alcoholConsumption>= 10 && alcoholConsumption< 15) {
-			life -= 2;
-		}
-		
-		else if(alcoholConsumption>= 15) {
-			life -= 5;
-		}
-		
-		
-		//
-//		Primarily processed foods  = - 3 years
-//		50/50 clean processed = 0
-//		Fairly clean and some processed + 3 years d 
-//		Extremely clean + 6 years
-
-		if(Diet == 1) {
-			//primarly processed
-			life -= 3;
-		}
-		
-		else if(Diet == 2) {
-			//50/50 0 impact
+		if(personLifeList == null) {
+			personLifeList = new ArrayList();
 			
 		}
 		
-		else if(Diet == 3) {
-			//Fairly cleam +3 impact
-			life += 3;
-		}
-		else if(Diet == 4) {
-			//Very Clean + 6 years impact
-			life += 6;
-		}
+		personLifeList.add(new PersonLife(life, name));
+		String result = "Life expectancy - ";
+		double total = 0.0;
 		
-		
-//		Implement happiness levels
-//		always = +5
-//		often = +2.5
-//		half the time = 0
-//		rarley = - 3
-//		never = + -4		
-		
-		if(happy == 5) {
-			life += 5;
-		}
-		else if(happy ==4) {
-			life += 2.5;
-		}
-		else if(happy == 3) {
+		for(int i = 0; i < personLifeList.size(); i++) {
+			result += personLifeList.get(i).getName()+": "+ df.format(personLifeList.get(i).getLife())+ "\t";
+			total += personLifeList.get(i).getLife();
+			
 			
 		}
-		else if(happy == 2) {
-			life -= 3;
-		}
-		else if(happy == 1) {
-			life -= 4;
-		}
 		
-		
-		
-		
-//		Implement stress levels
-//		always = -2.8
-//		often = -1.5
-//		half the time = 0
-//		rarley = + 1
-//		never = + 2
-
-
-		if(stress == 5) {
-			life -= 2.8;
-		}
-		else if(stress ==4) {
-			life -= 1.5;
-		}
-		else if(stress == 3) {
-			
-		}
-		else if(stress == 2) {
-			life += 1;
-		}
-		else if(stress == 1) {
-			life += 2;
-		}
-		
-		
-		
-		
-		life = 0.7*life + 0.3*familyAvg;
-		return life;
+		result = "Average life of group: " + df.format(total/personLifeList.size()) + "\t" + result;
+		lifeExpectancyLabel.setText(result);
 		
 	}
-	
-	
-	
-
 
 }
