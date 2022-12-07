@@ -1,5 +1,7 @@
 package application;
 
+import java.time.Duration;
+
 public class LifeExpectancyCalculator {
 	
 	static Double calculateLife(Boolean isFemale,Double Bmi, Double familyAvg, Double smokeLifeReduction,
@@ -14,6 +16,7 @@ public class LifeExpectancyCalculator {
 		
 		
 		//BMI IMPACT
+		
 		if(Bmi < 18) {
 			life -= 4;
 		}
@@ -152,13 +155,17 @@ public class LifeExpectancyCalculator {
 		return life;
 		
 	}
+	//525600 is the number of minutes in a year
 	
 	   static double smokeLifeLost(long days, int numCigs) {
 		   return (days*numCigs*11)/525600.0;
 		   
 	   }
 	    
-
+	   static double smokeLifeLostFormer(long foremrDays, int formerCigs) {
+		   return (foremrDays*formerCigs*11)/525600.0;
+		   
+	   }
 
 		    //BMI CALCULATIONS
 		static Double calculateBmi(Double weight, Double height) {
@@ -167,5 +174,9 @@ public class LifeExpectancyCalculator {
 			return weight/(height * height);
 			
 		}
+		
+//		static Double calculateYearsLeft(Double yearsLeft) {
+// 
+//		}
 
 }

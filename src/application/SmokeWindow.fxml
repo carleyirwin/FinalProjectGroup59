@@ -12,7 +12,7 @@
    <children>
       <VBox prefHeight="350.0" prefWidth="154.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Current Date:" wrappingWidth="118.13671875">
+            <Text fx:id="smokeLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Test" wrappingWidth="152.13671875">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
@@ -22,7 +22,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Average Cigarettes Smoked Per Day" wrappingWidth="118.13671875">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Average Cigarettes Smoked Per Day:" wrappingWidth="118.13671875">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>

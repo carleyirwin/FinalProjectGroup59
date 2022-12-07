@@ -17,7 +17,7 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			VBox root= loader.load(new FileInputStream("src/application/LifeExpectancyView.fxml"));
-			Scene scene = new Scene (root, 1050, 400);
+			Scene scene = new Scene (root, 1200, 500);
 			
 			LifeExpectancyController controller = (LifeExpectancyController)loader.getController();
 			controller.applicationStage = primaryStage;

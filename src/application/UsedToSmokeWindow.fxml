@@ -27,7 +27,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Text>
-            <Button fx:id="doneCurrentButton" mnemonicParsing="false" onAction="#returnToMain" prefHeight="25.0" prefWidth="223.0" text="Done">
+            <Button fx:id="doneUsedToButton" mnemonicParsing="false" onAction="#returnUsedToMain" prefHeight="25.0" prefWidth="223.0" text="Done">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
@@ -36,22 +36,22 @@
       </VBox>
       <VBox prefHeight="200.0" prefWidth="162.0">
          <children>
-            <DatePicker id="DateStartedSmoking" fx:id="SmokeDate" prefHeight="25.0" prefWidth="144.0">
+            <DatePicker id="DateStartedSmoking" fx:id="SmokeD" prefHeight="25.0" prefWidth="144.0">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </DatePicker>
-            <DatePicker fx:id="currentDate">
+            <DatePicker fx:id="currentD">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </DatePicker>
-            <TextField fx:id="AvgCigs">
+            <TextField fx:id="AvgCig">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="30.0" />
                </VBox.margin>
             </TextField>
-            <Label fx:id="errorLabel" prefHeight="17.0" prefWidth="163.0" textFill="#b52727">
+            <Label fx:id="errorLabels" prefHeight="17.0" prefWidth="163.0" textFill="#b52727">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>

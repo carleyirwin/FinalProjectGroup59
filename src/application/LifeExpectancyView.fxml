@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.collections.FXCollections?>
 
-<VBox prefHeight="450.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LifeExpectancyController">
+<VBox prefHeight="500.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LifeExpectancyController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="41.0" prefWidth="1094.0" text="Average Life Expectancy Calulator" underline="true">
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="1210.0" text="Average Life Expectancy Calulator" underline="true">
          <font>
             <Font name="Comic Sans MS" size="18.0" />
          </font>
@@ -22,11 +22,11 @@
             <Blend mode="GREEN" />
          </effect>
       </Label>
-      <HBox prefHeight="325.0" prefWidth="1050.0">
+      <HBox prefHeight="450.0" prefWidth="1050.0">
          <children>
             
             
-            <VBox prefHeight="300.0" prefWidth="350.0">
+            <VBox prefHeight="0.0" prefWidth="350.0">
                <children>
                   <Label alignment="CENTER" prefHeight="14.0" prefWidth="404.0" text="PERSONAL INFORMATION" textFill="#cd3939">
                      <font>
@@ -38,14 +38,14 @@
                   </Label>
                   <HBox prefHeight="36.0" prefWidth="346.0">
                      <children>
-                        <Label text="Name:">
+                        <Label prefHeight="17.0" prefWidth="111.0" text="Name:">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField fx:id="nameTextField">
+                        <TextField fx:id="nameTextField" prefHeight="25.0" prefWidth="164.0">
                            <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                              <Insets bottom="10.0" left="65.0" top="5.0" />
                            </HBox.margin>
                         </TextField>
                      </children>
@@ -75,14 +75,14 @@
                               <ToggleGroup fx:id="toggleMale" />
                            </toggleGroup>
                            <HBox.margin>
-                              <Insets left="20.0" />
+                              <Insets left="35.0" />
                            </HBox.margin>
                         </RadioButton>
                         
                         
                         <RadioButton fx:id="femaleButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Female" toggleGroup="$toggleMale">
                            <HBox.margin>
-                              <Insets left="15.0" right="10.0" />
+                              <Insets left="40.0" />
                            </HBox.margin>
                         </RadioButton>
                      </children>
@@ -94,7 +94,7 @@
                      <children>
                         <Label prefHeight="34.0" prefWidth="101.0" text="Date Of Birth:">
                            <HBox.margin>
-                              <Insets left="10.0" top="15.0" />
+                              <Insets bottom="20.0" left="10.0" top="15.0" />
                            </HBox.margin>
                            <font>
                               <Font size="14.0" />
@@ -104,12 +104,12 @@
                        
                        
                        
-                        <DatePicker prefHeight="25.0" prefWidth="160.0">
+                        <DatePicker fx:id="birthDate" prefHeight="25.0" prefWidth="160.0">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                            <HBox.margin>
-                              <Insets left="70.0" right="10.0" top="20.0" />
+                              <Insets left="83.0" top="20.0" />
                            </HBox.margin>
                         </DatePicker>
                     
@@ -147,6 +147,9 @@
                                  </padding>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
                         </AnchorPane>
                         
                         
@@ -170,6 +173,9 @@
                                  </padding>
                               </Label>
                            </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                         </AnchorPane>
                     </items>
                   </SplitPane>
@@ -182,7 +188,7 @@
                         <Font name="Comic Sans MS Bold" size="16.0" />
                      </font>
                      <VBox.margin>
-                        <Insets />
+                        <Insets top="10.0" />
                      </VBox.margin>
                   </Label>
                   
@@ -220,10 +226,13 @@
                      <font>
                         <Font size="10.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets right="10.0" top="10.0" />
+                     </VBox.margin>
                   </Text>
                </children>
                <HBox.margin>
-                  <Insets left="10.0" right="15.0" />
+                  <Insets bottom="10.0" left="10.0" right="15.0" top="10.0" />
                </HBox.margin>
                
                
@@ -232,7 +241,7 @@
                
                
             </VBox>
-            <VBox prefHeight="300.0" prefWidth="350.0">
+            <VBox prefHeight="346.0" prefWidth="419.0">
                <children>
                   <Label alignment="CENTER" prefHeight="23.0" prefWidth="346.0" text="PERSONAL LIFESTYLE" textFill="#385bbc">
                      <font>
@@ -246,7 +255,7 @@
                   
                   <HBox prefHeight="40.0" prefWidth="338.0">
                      <children>
-                        <Label prefHeight="20.0" prefWidth="121.0" text="Do You Smoke?">
+                        <Label prefHeight="20.0" prefWidth="141.0" text="Do You Smoke?">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -258,7 +267,7 @@
                         
                         <ChoiceBox fx:id="smokeChoiceBox" onAction="#openSmokeWindow" prefHeight="25.0" prefWidth="160.0">
                            <HBox.margin>
-                              <Insets left="55.0" right="10.0" top="5.0" />
+                              <Insets left="75.0" right="10.0" top="5.0" />
                            </HBox.margin>
                            
             	<items>
@@ -280,19 +289,19 @@
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets />
+                              <Insets bottom="10.0" />
                            </VBox.margin>
                         </Label>
                         <HBox prefHeight="40.0" prefWidth="338.0">
                            <children>
                            
                            
-                              <Label prefHeight="17.0" prefWidth="177.0" text="High Instensity Excersize:">
+                              <Label prefHeight="17.0" prefWidth="206.0" text="High Instensity Excersize:">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                                  <HBox.margin>
-                                    <Insets left="13.0" />
+                                    <Insets bottom="20.0" left="13.0" top="10.0" />
                                  </HBox.margin>
                                  <font>
                                     <Font name="System Italic" size="12.0" />
@@ -315,12 +324,12 @@
                         
                         <HBox prefHeight="40.0" prefWidth="338.0">
                            <children>
-                              <Label prefHeight="17.0" prefWidth="179.0" text="Low Instensity Excersize:">
+                              <Label prefHeight="17.0" prefWidth="207.0" text="Low Instensity Excersize:">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                                  <HBox.margin>
-                                    <Insets left="13.0" />
+                                    <Insets left="13.0" top="2.0" />
                                  </HBox.margin>
                                  <font>
                                     <Font name="System Italic" size="12.0" />
@@ -334,10 +343,13 @@
                                  </HBox.margin>
                               </Slider>
                            </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                         </HBox>
                      </children>
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets bottom="20.0" top="20.0" />
                      </VBox.margin>
                   </VBox>
                   
@@ -346,14 +358,14 @@
                      <items>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="81.0" prefWidth="150.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="-1.0" prefHeight="31.0" prefWidth="156.0" text="Alcohol Consumption:">
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="-1.0" prefHeight="31.0" prefWidth="156.0" text="Alcohol Consumption:">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
                               
                               
-                              <ChoiceBox fx:id="alcoholInput" layoutX="24.0" layoutY="28.0" prefHeight="25.0" prefWidth="107.0">
+                              <ChoiceBox fx:id="alcoholInput" layoutX="48.0" layoutY="28.0" prefHeight="25.0" prefWidth="107.0">
 					            	<items>
 					            		<FXCollections fx:factory="observableArrayList">
 					            			<String fx:value="0" />
@@ -366,23 +378,26 @@
 					            	</items> 
 					         </ChoiceBox>      
 					                                 
-                              <Text layoutX="41.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drinks Per Week" textAlignment="CENTER" wrappingWidth="78.0">
+                              <Text layoutX="63.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drinks Per Week" textAlignment="CENTER" wrappingWidth="78.0">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
                               </Text>
                            </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                         </AnchorPane>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="81.0" prefWidth="163.0">
                            <children>
-                              <Label alignment="CENTER" layoutX="-1.0" layoutY="-1.0" prefHeight="31.0" prefWidth="145.0" text="Typical Diet:">
+                              <Label alignment="CENTER" layoutX="22.0" layoutY="-1.0" prefHeight="31.0" prefWidth="145.0" text="Typical Diet:">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
                              
                              
-                              <ChoiceBox fx:id="dietInput" layoutX="18.0" layoutY="28.0" prefHeight="25.0" prefWidth="107.0">
+                              <ChoiceBox fx:id="dietInput" layoutX="41.0" layoutY="28.0" prefHeight="25.0" prefWidth="107.0">
 					            	<items>
 					            		<FXCollections fx:factory="observableArrayList">
 					            			<String fx:value="Extremely Processed" />
@@ -410,7 +425,7 @@
                   <Insets left="10.0" />
                </padding>
                <HBox.margin>
-                  <Insets right="15.0" />
+                  <Insets bottom="10.0" left="10.0" right="15.0" top="10.0" />
                </HBox.margin>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="348.0">
@@ -420,7 +435,7 @@
                         <Font name="Comic Sans MS Bold" size="16.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                   </Label>
                   
@@ -428,9 +443,9 @@
                   
                               <HBox prefHeight="130.0" prefWidth="400.0">
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="150.0">
+                        <VBox prefHeight="130.0" prefWidth="186.0">
                            <children>
-                              <Label maxWidth="-Infinity" prefHeight="20.0" prefWidth="190.0" text="I am always Happy:">
+                              <Label maxWidth="-Infinity" prefHeight="20.0" prefWidth="131.0" text="I am always Happy:">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -438,7 +453,10 @@
                                     <Insets left="10.0" />
                                  </VBox.margin>
                               </Label>
-                              <Slider fx:id="happyInput" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" orientation="VERTICAL" prefHeight="107.0" prefWidth="135.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                              <Slider fx:id="happyInput" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" orientation="VERTICAL" prefHeight="106.0" prefWidth="136.0" showTickLabels="true" showTickMarks="true" snapToTicks="true">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin></Slider>
                            </children>
                         </VBox>
                         <VBox prefHeight="110.0" prefWidth="147.0">
@@ -467,7 +485,7 @@
                               </Label>
                            </children>
                            <HBox.margin>
-                              <Insets left="35.0" top="25.0" />
+                              <Insets left="35.0" top="20.0" />
                            </HBox.margin>
             
                                     </VBox>
@@ -476,19 +494,19 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox prefHeight="130.0" prefWidth="400.0">
+                  <HBox prefHeight="154.0" prefWidth="304.0">
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="150.0">
+                        <VBox prefHeight="154.0" prefWidth="187.0">
                            <children>
                               <Label maxWidth="-Infinity" prefHeight="20.0" prefWidth="190.0" text="I feel Stressed:">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets left="10.0" />
+                                    <Insets bottom="5.0" left="10.0" top="10.0" />
                                  </VBox.margin>
                               </Label>
-                              <Slider fx:id="stressInput" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" orientation="VERTICAL" prefHeight="107.0" prefWidth="135.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                              <Slider fx:id="stressInput" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" orientation="VERTICAL" prefHeight="107.0" prefWidth="143.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
                            </children>
                         </VBox>
                         <VBox prefHeight="110.0" prefWidth="147.0">
@@ -516,17 +534,23 @@
                               </Label>
                            </children>
                            <HBox.margin>
-                              <Insets left="35.0" top="25.0" />
+                              <Insets left="35.0" top="35.0" />
                            </HBox.margin>
                         </VBox>
                      </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </HBox>
                </children>
                <HBox.margin>
-                  <Insets right="15.0" />
+                  <Insets bottom="10.0" left="10.0" right="15.0" top="10.0" />
                </HBox.margin>
             </VBox>
          </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
       </HBox>
       
                               
