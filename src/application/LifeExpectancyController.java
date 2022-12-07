@@ -21,9 +21,15 @@ import javafx.scene.layout.HBox;
 // figure out used to smoke
 public class LifeExpectancyController {
 	
+	/**
+	 * This method controlls the interface and the error methods based 
+	 * on the users inputs from each componment of the grade calculator
+	 * @param
+	 * @return
+	 */
 	//family history = 30% make up of expected age
 	//
-	
+	static Double smokingLife;
 	Double weight = 0.0;
 	Double height = 0.0;
 	Double familyAvg = 0.0;
@@ -42,9 +48,7 @@ public class LifeExpectancyController {
 	int lowIntensity;
 	int alcohol;
 	String Diet;
-	LocalDate DateStart;
 
-	//LocalDate EndDate;
 
 	double smokeLife;
 	
@@ -199,28 +203,23 @@ public class LifeExpectancyController {
    @FXML
    void returnToMain(ActionEvent event) {
 
-
-	   //(days * avg cig per day * 11)/525600 (mins in a year)
 	   
 	   try {
 		   
-		   DateStart = currentDate.getValue();
+		   LocalDate DateStart = currentDate.getValue();
 		   LocalDate EndDate = SmokeDate.getValue();
-		   
 		   long days = Duration.between(DateStart.atStartOfDay(), EndDate.atStartOfDay()).toDays();
-		   
-//		   if(days < 0) {
-//			   errorLabel.setText("Input is invalid 1");
-//			   return;
-//		   }   
+  
 		   int numCigs = Integer.parseInt(AvgCigs.getText());
-		   smokeLife = LifeExpectancyCalculator.smokeLifeLost(days, numCigs);
+		   smokingLife = LifeExpectancyCalculator.smokeLifeLost(days, numCigs);
 		   
-		   if (smokeLife < 0 || days < 0) {
+		   if (smokingLife< 0 || days < 0) {
 			   errorLabel.setText("INVALID INPUT");
 			   return;
 		   } 
+		
 	   }
+	   
 	   
 	   catch(Exception e){
 		   errorLabel.setText("INVALID INPUT");
@@ -229,29 +228,14 @@ public class LifeExpectancyController {
 	   Stage stage = (Stage)doneCurrentButton.getScene().getWindow();
 	   stage.close();
 	   Main.mainStage.show();
+	   System.out.println(smokeLife);
    }
    
-
-   
-   @FXML
-   void resetCalc(ActionEvent event) {
-	   personLifeList = null;
-	   lifeExpectancyLabel.setText("");
-	   
-   }
-	
-   
-   
-   
-   
-   
-   
-   
-	
 	
 	   // calculate life expectancy
     @FXML
 	void calulateLifeExpectancy(ActionEvent event) {
+    	
 
 		try{
 			String weightString = weightInput.getText();
@@ -269,8 +253,14 @@ public class LifeExpectancyController {
 			weight = Double.parseDouble(weightString);
 			height = Double.parseDouble(heightString);
 			familyAvg = Double.parseDouble(familyString);
+			System.out.println(smokeLife);
 			
-
+			String smoking = (String) smokeChoiceBox.getValue();
+			if(smoking.equals("Never Smoked")) {
+				smokingLife= 0.0;
+			}
+			System.out.println(smokeLife);
+			System.out.println(smoking);
 		}
 		catch(Exception e){
 			finalError.setText("INVALID INPUT");
@@ -278,42 +268,45 @@ public class LifeExpectancyController {
 			
 		}
 		
-		
+
 
 		
 		
 		finalError.setText("");
 		
+		if(femaleButton.isSelected()) {
+			female = true;
+		}
+		
+		else if(maleButton.isSelected()) {
+			female = false;
+		}
+		else{
+			finalError.setText("please select your gender");
+			return;
+		}
+		
+		
+		if(familyAvg < 0) {
+			finalError.setText("Family  Member Must be in existence. Less than zero inputs are not valid!");
+			return;
+		}
 		
 		Double bmi = LifeExpectancyCalculator.calculateBmi(weight, height);
 		//Double yearsLeftTotal = LifeExpectancyCalculator.calculateYearsLeft()
-		Double life = LifeExpectancyCalculator.calculateLife(true,bmi,familyAvg,smokeLife,lowIntensity, highIntensity,alcoholConsumption,Diet,happy,stress);
+		Double life = LifeExpectancyCalculator.calculateLife(female,bmi,familyAvg,smokingLife,lowIntensity, highIntensity,alcoholConsumption,Diet,happy,stress);
 		
 		if(personLifeList == null) {
 			personLifeList = new ArrayList();
 			
 		}
 		
+		//if calculated bmi is not possible to live with
 		if(bmi < 12 || bmi > 100) {
 			finalError.setText("Unlikley to sustain life under these conditions. Please Check that your weight and height is accurate");
 			return;
 		}
-		
-		
-		   DateStart = currentDate.getValue();
-		   LocalDate EndDate = SmokeDate.getValue();
-		   
-		   long days = Duration.between(DateStart.atStartOfDay(), EndDate.atStartOfDay()).toDays();
-		   
-		   
-		   
-		LocalDate birthD = birthDate.getValue();
-		long daysBDAY = Duration.between(birthD.atStartOfDay(), DateStart.atStartOfDay()).toDays();
-		if(daysBDAY <= 0 ) {
-			finalError.setText("INVALID INPUT, can not have initial smoke date prior to birthday.");
-			return;
-		}
-		
+
 		
 		personLifeList.add(new PersonLife(life, name));
 		String result = "Life expectancy of ";
@@ -329,8 +322,16 @@ public class LifeExpectancyController {
 		result = "Average life of group: " + df.format(total/personLifeList.size()) + "\t" + result;
 		lifeExpectancyLabel.setText(result);
 		
-
-		
 	}
+    
+    @FXML
+    void resetCalc(ActionEvent event) {
+    	
+ 	   personLifeList = null;
+ 	   lifeExpectancyLabel.setText("");
+ 	   
+    }
+		
+
 
 }

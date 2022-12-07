@@ -4,6 +4,12 @@ import java.time.Duration;
 
 public class LifeExpectancyCalculator {
 	
+	/**
+	 * This method assigns all the life altering values based on the user inputs
+	 * @param
+	 * @return
+	 */
+	
 	static Double calculateLife(Boolean isFemale,Double Bmi, Double familyAvg, Double smokeLifeReduction,
 			int lowIntensity, int highIntensity, String alcoholConsumption, String Diet, int happy, int stress){
 		Double life = 0.0;

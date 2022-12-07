@@ -1,7 +1,11 @@
 package application;
 
 public class PersonLife {
-	
+	/**
+	 * Creates a new person allowing for new values to be assigned to that person
+	 * @param
+	 * @return
+	 */
 	private double life;
 	private String name;
 	

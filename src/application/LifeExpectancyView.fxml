@@ -14,7 +14,7 @@
 
 <VBox prefHeight="500.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LifeExpectancyController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="1210.0" text="Average Life Expectancy Calulator" underline="true">
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="1210.0" text="Average Life Expectancy Calculator" underline="true">
          <font>
             <Font name="Comic Sans MS" size="18.0" />
          </font>
@@ -577,7 +577,7 @@
             <Insets bottom="10.0" />
          </VBox.margin>
       </VBox>
-      <Label fx:id="finalError" alignment="CENTER" prefHeight="17.0" prefWidth="1049.0" />
+      <Label fx:id="finalError" alignment="CENTER" prefHeight="17.0" prefWidth="1210.0" textFill="RED" />
    </children>  
    
    
