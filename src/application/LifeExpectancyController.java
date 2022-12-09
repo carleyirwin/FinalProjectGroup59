@@ -18,7 +18,7 @@ import javafx.fxml.FXMLLoader;
 
 import javafx.scene.layout.HBox;
 
-// figure out used to smoke
+
 public class LifeExpectancyController {
 	
 	/**
@@ -36,8 +36,7 @@ public class LifeExpectancyController {
 	Double yearsLeft = 0.0;
 	String alcoholConsumption = "";
 	Boolean female;
-	Boolean lifeAllowing;
-	
+
 	//WANT TO ADD AN ERROR MESSAGE FOR NON LIFE SUSTAINABLE OUTCOMES: EX BMI IS LIKE AN 8 
 	//IS IMPOSSIBLE, WANT TO SET A MESSAGE SAYING BMI NOT LIFE SUSTAINABLE.
 	

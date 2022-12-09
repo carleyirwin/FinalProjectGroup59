@@ -72,11 +72,6 @@ public class LifeExpectancyCalculator {
 			life += 4.5;			
 		}
 	
-//		<String fx:value="Extremely Processed" />
-//		<String fx:value="50/50 Processed and Clean" />
-//		<String fx:value="Primarly Clean" />						            		
-//		<String fx:value="Extremely Clean" />
-
 		if(Diet.equals("Extremely Processed")) {
 			//primarly processed
 			life -= 3;
@@ -168,10 +163,6 @@ public class LifeExpectancyCalculator {
 		   
 	   }
 	    
-	   static double smokeLifeLostFormer(long foremrDays, int formerCigs) {
-		   return (foremrDays*formerCigs*11)/525600.0;
-		   
-	   }
 
 		    //BMI CALCULATIONS
 		static Double calculateBmi(Double weight, Double height) {
@@ -181,8 +172,6 @@ public class LifeExpectancyCalculator {
 			
 		}
 		
-//		static Double calculateYearsLeft(Double yearsLeft) {
-// 
-//		}
+
 
 }
